@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //using reactive approach - form
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor() { }
+  constructor(private authServive: AuthService) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -19,6 +20,9 @@ export class LoginComponent implements OnInit {
     });
   }
   onSubmit() {
-    alert('form is submit')
+    this.authServive.login({
+      email: this.loginForm.value.email,
+      password: this.loginForm.value.password
+    });
   }
 }
