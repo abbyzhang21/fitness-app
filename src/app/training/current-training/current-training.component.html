@@ -2,7 +2,7 @@
 <section class='current-training' fxLayout='column' fxLayoutAlign='center center'>
     <mat-progress-spinner mode="determinate" [value]='progress'></mat-progress-spinner>
     <h2>{{ progress }}%</h2>
-    <h3>{{ selected }}</h3>
+    <h3>{{ workout }}</h3>
     <p>Keep on going, you can do it!</p>
     <button mat-fab color='warn' (click)='onStop()'>
         Stop
