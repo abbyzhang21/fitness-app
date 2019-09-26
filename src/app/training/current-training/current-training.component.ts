@@ -13,20 +13,25 @@ export class CurrentTrainingComponent implements OnInit {
   progress = 0;
   timer: number;
   workout: string;
-
+  completedExercise=[];
+  state: string;
   constructor(private dialog: MatDialog, private trainingService: TrainingService) { }
 
   ngOnInit() {
     this.startOrResumeTimer();
     this.workout = this.trainingService.getRunningExercise().name;
+    this.trainingService.pastExercises.subscribe(completed => this.completedExercise = completed);
   }
 
   startOrResumeTimer() {
-    const step = this.trainingService.getRunningExercise().duration/100*1000;
+    const step = this.trainingService.getRunningExercise().duration/100*100;
+    const runningExercise = this.trainingService.getRunningExercise();
     this.timer = setInterval(() => {
       this.progress = this.progress + 1;
       if(this.progress >= 100) {
         clearInterval(this.timer);
+      this.completedExercise.push(runningExercise)
+      console.log(this.completedExercise)
       }
     }, step)
   }
